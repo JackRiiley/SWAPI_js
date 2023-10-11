@@ -118,14 +118,25 @@ function fetchCharacters(page) {
 //Initial Page Load
 fetchCharacters(currPage);
 
+//Function to scroll to top of page
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behaviour: 'smooth',
+    });
+}
+
+//Event Listeners
 nextPageBtn.addEventListener("click", () => {
     currPage++; //Increment the current page
-    fetchCharacters(currPage); //Fetcches and displays the next set of characters
+    fetchCharacters(currPage); //Fetches and displays the next set of characters
+    scrollToTop();
 });
 
 prevPageBtn.addEventListener("click", () => {
     currPage--; //Decrement the current page
     fetchCharacters(currPage);
+    scrollToTop();
 });
 
 //Sets the query to be whatever entered by user and returns the results
