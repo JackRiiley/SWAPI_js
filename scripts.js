@@ -11,6 +11,22 @@ const searchBtn = document.getElementById("search-button");
 
 let currPage = 1; //Sets up the first page for the characters
 
+//Function to fetch and display characters based on search query
+//TODO - ensure that all information is availale - not just name
+function searchCharacters(query) {
+    const apiURL = rootURL + `/people/?search=${query}`;
+
+    fetch(apiURL)
+      .then((res) => res.json())
+      .then((data) => {
+        characterList.textContent = ''; //Clears the current character list
+
+        data.results.forEach((character) => {
+            populateCharacterCard(data.results);
+        });
+      });
+}
+
 //Function to fetch Planet Info by URL
 function fetchPlanetInfo(planetURL, cardEl) {
     fetch(planetURL)
@@ -110,4 +126,10 @@ nextPageBtn.addEventListener("click", () => {
 prevPageBtn.addEventListener("click", () => {
     currPage--; //Decrement the current page
     fetchCharacters(currPage);
+});
+
+//Sets the query to be whatever entered by user and returns the results
+searchBtn.addEventListener("click", () => {
+    const searchQuery = searchInput.value;
+    searchCharacters(searchQuery);
 });
