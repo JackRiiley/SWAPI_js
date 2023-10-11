@@ -9,6 +9,8 @@ const prevPageBtn = document.getElementById("prev-page");
 const searchInput = document.getElementById("search-input");
 const searchBtn = document.getElementById("search-button");
 
+const clearBtn = document.getElementById("clear-button");
+
 let currPage = 1; //Sets up the first page for the characters
 
 //Function to fetch and display characters based on search query
@@ -143,4 +145,11 @@ prevPageBtn.addEventListener("click", () => {
 searchBtn.addEventListener("click", () => {
     const searchQuery = searchInput.value;
     searchCharacters(searchQuery);
+});
+
+//clear the search and return to the first page
+clearBtn.addEventListener("click", () => {
+    currPage = 1;
+    searchInput.value = "";
+    fetchCharacters(currPage);
 });

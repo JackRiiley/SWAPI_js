@@ -43,12 +43,17 @@ h1 {
 
 #search-input,
 #search-button,
-#char-page {
+#char-page,
+#clear-button {
     display: block;
     margin: 0 auto;
     padding: 10px;
     border-radius: 4px;
     font-size: 1.2rem;
+}
+
+#clear-button {
+    margin-top: 10px;
 }
 
 #char-page {
@@ -69,7 +74,8 @@ a {
     margin-bottom: 10px;
 }
 
-#search-button {
+#search-button,
+#clear-button {
     background-color: rgb(209, 44, 44);
     color: #fff;
     border: none;
