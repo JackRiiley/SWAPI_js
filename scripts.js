@@ -65,10 +65,16 @@ function populateCharacterCard(characters) {
         }
 
         //As Films are held in array, need to cycle through them to gain all titles
-        if (characters.films && characters.films.length > 0) {
-            characters.films.forEach((filmURL) => {
+        if (character.films && character.films.length > 0) {
+            const filmEl = document.createElement('div');
+            //Clears the content to ensure nothing is in
+            filmEl.textContent = '';
+
+            character.films.forEach((filmURL) => {
                 fetchFilmInfo(filmURL, cardEl);
             });
+
+            cardEl.appendChild(filmEl);
         }
 
         characterList.appendChild(cardEl);
