@@ -11,7 +11,30 @@ const searchBtn = document.getElementById("search-button");
 
 let currPage = 1; //Sets up the first page for the characters
 
+//Function to populate the 'character card' with information from the API
+function populateCharacterCard(characters) {
+    characterList.textContent = ''; //Clears the character list to start from nothing
 
+    characters.forEach((character) => {
+        //Sets up ther blank card for each character
+        const cardEl = document.createElement("div");
+        cardEl.setAttribute('class', 'card');
+
+        //Name element
+        const nameEl = document.createElement("h2");
+        nameEl.textContent = character.name;
+
+        cardEl.appendChild(nameEl);
+
+        //Birth year element
+        const birthYearEl = document.createElement('p');
+        birthYearEl.textContent = `Birth Year: ${character.birth_year}`;
+
+        cardEl.appendChild(birthYearEl);
+
+        //Check for Home World URL - will run function to handle API call for this 
+    })
+}
 
 //Function to fetch and display characters based on page number
 function fetchCharacters(page) {
