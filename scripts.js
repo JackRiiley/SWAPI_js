@@ -11,6 +11,33 @@ const searchBtn = document.getElementById("search-button");
 
 let currPage = 1; //Sets up the first page for the characters
 
+//Function to fetch Planet Info by URL
+function fetchPlanetInfo(planetURL, cardEl) {
+    fetch(planetURL)
+    .then((res) => res.json())
+    .then((data) => {
+        //Populate the character card with the planet name
+        const planetEl = document.createElement('p');
+        planetEl.textContent = `Homeworld: ${data.name}`;
+        cardEl.appendChild(planetEl);
+    })
+    .catch((err) => {
+        console.log("Error fetching planet Info: ", err);
+    });
+}
+
+//Function to fetch film information by URL
+function fetchFilmInfo(filmURL, cardEl) {
+    fetch(filmURL)
+    .then((res) => res.json())
+    .then((data) => {
+        //Populate the charcter card with film names
+        const filmInfo = document.createElement('p');
+        filmInfo.textContent = `Film: ${data.title}`;
+        cardEl.appendChild(filmInfo);
+    });
+}
+
 //Function to populate the 'character card' with information from the API
 function populateCharacterCard(characters) {
     characterList.textContent = ''; //Clears the character list to start from nothing
@@ -32,13 +59,25 @@ function populateCharacterCard(characters) {
 
         cardEl.appendChild(birthYearEl);
 
-        //Check for Home World URL - will run function to handle API call for this 
+        //Check for Home World URL - will run function to handle API call for this
+        if (character.homeworld) {
+            fetchPlanetInfo(character.homeworld, cardEl);
+        }
+
+        //As Films are held in array, need to cycle through them to gain all titles
+        if (characters.films && characters.films.length > 0) {
+            characters.films.forEach((filmURL) => {
+                fetchFilmInfo(filmURL, cardEl);
+            });
+        }
+
+        characterList.appendChild(cardEl);
     })
 }
 
 //Function to fetch and display characters based on page number
 function fetchCharacters(page) {
-    const apiURL = rootURL + `people/?page=${page}`;
+    const apiURL = rootURL + `/people/?page=${page}`;
 
     fetch(apiURL)
       .then((res) => res.json())
@@ -53,6 +92,9 @@ function fetchCharacters(page) {
       });
 
 }
+
+//Initial Page Load
+fetchCharacters(currPage);
 
 nextPageBtn.addEventListener("click", () => {
     currPage++; //Increment the current page
